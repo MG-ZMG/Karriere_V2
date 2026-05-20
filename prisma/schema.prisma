@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Job {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  intro         String
+  responsibilities String // JSON stringified string[]
+  requirements  String   // JSON stringified string[]
+  benefits      String   // JSON stringified string[]
+  employmentType String  // Vollzeit/Teilzeit/...
+  location      String
+  salaryNote    String?
+  heroImage     String?
+  roleKey       String   // zfa | zmp | zahnarzt | kinderzahnarzt | kieferorthopade
+  status        String   @default("published") // draft/published
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
